@@ -3,3 +3,7 @@ calculate_score() {
         FINAL_SCORE=0
         return
     fi
+
+    ACCURACY=$(( 100 * CORRECT_WORDS / TOTAL_WORDS ))
+
+    BASE_SCORE=$(( ACCURACY * DIFF_MULTIPLIER ))
