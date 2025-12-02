@@ -1,7 +1,7 @@
 ---
-name: "[Feat]"
+name: "[Fix]"
 about: Suggest an idea for this project
-title: "[Feat]"
+title: "[Fix]"
 labels: ''
 assignees: ''
 
