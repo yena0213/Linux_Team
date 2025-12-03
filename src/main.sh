@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/score.sh"
 source "$SCRIPT_DIR/ranking.sh"
 source "$SCRIPT_DIR/game.sh"
 source "$SCRIPT_DIR/log_viewer.sh"
-source "$SCRIPT_DIR/settings.sh"
+source "$SCRIPT_DIR/setting.sh"
 source "$SCRIPT_DIR/system_info.sh"
 
 main_menu() {
@@ -43,6 +43,7 @@ main_menu() {
                 ;;
             4)
                 settings_menu    
+                read -p "엔터를 누르면 메뉴로 돌아갑니다..." _wait
                 ;;
             5)
                 show_system_info

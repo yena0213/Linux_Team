@@ -1,5 +1,4 @@
 #!/bin/bash
-source "$SCRIPT_DIR/settings.sh" 
 
 # 설정 메뉴
 settings_menu() {
@@ -11,7 +10,6 @@ settings_menu() {
         echo "1) 환경변수 보기"
         echo "2) 환경변수 설정 (export)"
         echo "3) 단어 파일 경로 변경"
-        echo "4) 설정"
         echo "0) 돌아가기"
         echo "---------------------------"
         read -p "선택: " choice
@@ -25,9 +23,6 @@ settings_menu() {
                 ;;
             3)
                 change_word_file
-                ;;
-            4)
-                settings_menu 
                 ;;
             0)
                 return
@@ -61,7 +56,7 @@ show_env_variables() {
     read -p "엔터를 누르세요..." _wait
 }
 
-# 환경변수 설정
+# 환경변수 설정 (export 활용)
 set_env_variable() {
     clear
     echo "==========================="
