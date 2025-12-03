@@ -15,6 +15,8 @@ play_game() {
         USERNAME="anonymous"
     fi
 
+    log_message "INFO" "Game started: Player=$USERNAME, Difficulty=$DIFF_NAME, Words=$DIFF_WORD_COUNT"
+
     echo
     echo "▶ $USERNAME 님, $DIFF_NAME 난이도로 시작합니다."
     echo "   아래에 보이는 단어를 그대로 입력하세요."
@@ -47,6 +49,7 @@ play_game() {
             ((CORRECT_WORDS++))
         else
             echo "❌ 오답! (정답: $TARGET_CLEAN)"
+            log_message "DEBUG" "Wrong answer: Expected='$TARGET_CLEAN', Got='$INPUT_CLEAN'" 
         fi
 
         sleep 1
@@ -64,4 +67,6 @@ play_game() {
 
     calculate_score
     save_ranking
+
+    log_message "INFO" "Game finished: Player=$USERNAME, Score=$FINAL_SCORE, Correct=$CORRECT_WORDS/$TOTAL_WORDS, Time=${ELAPSED_TIME}s"
 }
