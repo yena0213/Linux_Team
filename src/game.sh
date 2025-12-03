@@ -7,7 +7,6 @@ play_game() {
     echo "     타이핑 게임 시작!"
     echo "==========================="
 
-    # 난이도 먼저 선택
     select_difficulty || return
 
     echo
@@ -16,6 +15,8 @@ play_game() {
     if [[ -z "$USERNAME" ]]; then
         USERNAME="anonymous"
     fi
+
+    log_message "INFO" "Game started: Player=$USERNAME, Difficulty=$DIFF_NAME, Words=$DIFF_WORD_COUNT"
 
     echo
     echo "▶ $USERNAME 님, $DIFF_NAME 난이도로 시작합니다."
@@ -28,16 +29,10 @@ play_game() {
 
     TOTAL_WORDS=$DIFF_WORD_COUNT
     CORRECT_WORDS=0
-    SECONDS=0           # SECONDS 변수 초기화 (bash 내장: 경과 시간)
+    SECONDS=0
 
-    # ─────────────────────────────
-    #  단어 하나씩 뽑아서 비교 (CRLF/공백 방어)
-    # ─────────────────────────────
     for (( i=0; i<TOTAL_WORDS; i++ )); do
-        # 랜덤 단어 1개 추출
         TARGET=$(shuf "$WORD_FILE" | head -n 1)
-
-        # 줄 끝의 \r, 앞뒤 공백 제거
         TARGET_CLEAN=$(trim "$TARGET")
 
         clear
@@ -48,7 +43,6 @@ play_game() {
         echo
         read -r -p "입력: " INPUT
 
-        # 입력값도 동일하게 정리
         INPUT_CLEAN=$(trim "$INPUT")
 
         if [[ "$INPUT_CLEAN" = "$TARGET_CLEAN" ]]; then
@@ -56,12 +50,13 @@ play_game() {
             ((CORRECT_WORDS++))
         else
             echo "❌ 오답! (정답: $TARGET_CLEAN)"
+            log_message "DEBUG" "Wrong answer: Expected='$TARGET_CLEAN', Got='$INPUT_CLEAN'" 
         fi
 
         sleep 1
     done
 
-    ELAPSED_TIME=$SECONDS   # 총 걸린 시간(초)
+    ELAPSED_TIME=$SECONDS
     echo
     echo "==========================="
     echo "   게임 종료!"
@@ -73,4 +68,6 @@ play_game() {
 
     calculate_score
     save_ranking
+
+    log_message "INFO" "Game finished: Player=$USERNAME, Score=$FINAL_SCORE, Correct=$CORRECT_WORDS/$TOTAL_WORDS, Time=${ELAPSED_TIME}s"
 }
