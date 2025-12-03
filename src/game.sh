@@ -1,12 +1,11 @@
-#!/bin/bash
 
-# 게임 플레이 기능
 play_game() {
     clear
     echo "==========================="
     echo "     타이핑 게임 시작!"
     echo "==========================="
 
+   
     select_difficulty || return
 
     echo
@@ -29,9 +28,9 @@ play_game() {
 
     TOTAL_WORDS=$DIFF_WORD_COUNT
     CORRECT_WORDS=0
-    SECONDS=0
-
+    SECONDS=0           
     for (( i=0; i<TOTAL_WORDS; i++ )); do
+        
         TARGET=$(shuf "$WORD_FILE" | head -n 1)
         TARGET_CLEAN=$(trim "$TARGET")
 
@@ -56,7 +55,7 @@ play_game() {
         sleep 1
     done
 
-    ELAPSED_TIME=$SECONDS
+    ELAPSED_TIME=$SECONDS   
     echo
     echo "==========================="
     echo "   게임 종료!"

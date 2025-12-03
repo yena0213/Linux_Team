@@ -1,4 +1,3 @@
-#!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -66,6 +65,5 @@ main_menu() {
     done
 }
 
-log_message "INFO" "Application started"
 init_word_file
 main_menu
