@@ -1,6 +1,4 @@
-#!/bin/bash
 
-# 현재 스크립트가 있는 디렉토리 기준으로 다른 파일들 불러오기
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "$SCRIPT_DIR/config.sh"
@@ -9,7 +7,6 @@ source "$SCRIPT_DIR/score.sh"
 source "$SCRIPT_DIR/ranking.sh"
 source "$SCRIPT_DIR/game.sh"
 
-# 메인 메뉴
 main_menu() {
     while true; do
         clear
@@ -44,6 +41,5 @@ main_menu() {
     done
 }
 
-# 메인 진입점
 init_word_file
 main_menu

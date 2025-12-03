@@ -1,13 +1,11 @@
-#!/bin/bash
 
-# 게임 플레이 기능
 play_game() {
     clear
     echo "==========================="
     echo "     타이핑 게임 시작!"
     echo "==========================="
 
-    # 난이도 먼저 선택
+   
     select_difficulty || return
 
     echo
@@ -28,16 +26,10 @@ play_game() {
 
     TOTAL_WORDS=$DIFF_WORD_COUNT
     CORRECT_WORDS=0
-    SECONDS=0           # SECONDS 변수 초기화 (bash 내장: 경과 시간)
-
-    # ─────────────────────────────
-    #  단어 하나씩 뽑아서 비교 (CRLF/공백 방어)
-    # ─────────────────────────────
+    SECONDS=0           
     for (( i=0; i<TOTAL_WORDS; i++ )); do
-        # 랜덤 단어 1개 추출
+        
         TARGET=$(shuf "$WORD_FILE" | head -n 1)
-
-        # 줄 끝의 \r, 앞뒤 공백 제거
         TARGET_CLEAN=$(trim "$TARGET")
 
         clear
@@ -48,7 +40,6 @@ play_game() {
         echo
         read -r -p "입력: " INPUT
 
-        # 입력값도 동일하게 정리
         INPUT_CLEAN=$(trim "$INPUT")
 
         if [[ "$INPUT_CLEAN" = "$TARGET_CLEAN" ]]; then
@@ -61,7 +52,7 @@ play_game() {
         sleep 1
     done
 
-    ELAPSED_TIME=$SECONDS   # 총 걸린 시간(초)
+    ELAPSED_TIME=$SECONDS   
     echo
     echo "==========================="
     echo "   게임 종료!"

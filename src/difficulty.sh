@@ -1,6 +1,4 @@
-#!/bin/bash
 
-# 난이도 선택 기능
 select_difficulty() {
     echo "==========================="
     echo "     난이도 선택"

@@ -1,18 +1,14 @@
-#!/bin/bash
 
-# 랭킹 저장 기능
 save_ranking() {
     local today timestamp
 
     today=$(date +%Y-%m-%d)
     timestamp=$(date +%s)
 
-    # 파일 없으면 생성
     if [[ ! -f "$RANKING_FILE" ]]; then
         touch "$RANKING_FILE"
     fi
 
-    # 형식: 이름 | 점수 | 날짜 | 타임스탬프
     echo "$USERNAME | $FINAL_SCORE | $today | $timestamp" >> "$RANKING_FILE"
 
     echo "▶ 점수가 랭킹에 저장되었습니다."
@@ -21,7 +17,6 @@ save_ranking() {
     show_ranking
 }
 
-# 랭킹 출력 기능 (상위 5개)
 show_ranking() {
     echo "==========================="
     echo "        랭킹 (Top 5)"
@@ -33,7 +28,6 @@ show_ranking() {
         return
     fi
 
-    # CR 제거 후 2번째 필드(점수)를 기준으로 내림차순 정렬 (높은 점수 → 낮은 점수)
     tr -d '\r' < "$RANKING_FILE" \
         | sort -t'|' -k2,2nr \
         | head -n 5 \
